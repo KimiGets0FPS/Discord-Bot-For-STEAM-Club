@@ -16,8 +16,8 @@ client.remove_command("help")
 
 @client.event
 async def on_member_join(member):
-    channel = client.get_channel(934863081622892585)
-    await channel.send(f"Welcome {member.mention}! Make sure to read {client.get_channel(931605909795381298)}")
+    channel = client.get_channel(931602389134377020)
+    await channel.send(f"Welcome {member.mention}! Make sure to read {client.get_channel(931602389134377020)}")
 
 
 @client.event
@@ -33,7 +33,8 @@ async def on_command_error(ctx, message):
 
 cog_files = [
     "commands.basic_commands",
-    "commands.fun_stuff"
+    "commands.fun_stuff",
+    "commands.serious_stuff"
              ]
 
 for file in cog_files:

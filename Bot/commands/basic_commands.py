@@ -46,6 +46,13 @@ class BasicCommands(commands.Cog):
             return
         await bad_person(message)
 
+    @commands.command(name="creator", help="Maybe you are wondering who created this bot?")
+    async def creator(self, message):
+        print(f"{message.author} doesn't know who created this bot :(")
+        await message.channel.send(f"{message.author.mention}, this bot was created by Kimi!\nHis main Github page is: "
+                                   f"https://github.com/KimiGets0FPS")
+        return
+
     # Gives help to those who needs them
     @commands.command(name="help", help="Run this command to get help, wait, why do you need help on help?")
     async def help(self, message):
@@ -66,8 +73,9 @@ class BasicCommands(commands.Cog):
                         inline=False)
         embed.add_field(name="rickroll", value="> Gives you the rick roll video! (friend inspired)", inline=False)
         embed.add_field(name="slap", value="> Why? I have no idea...", inline=False)
-        embed.add_field(name="rps", value="> Rock Paper Scissors, /rps [choice]", inline=False)
-        embed.add_field(name="gay", value="> How gay are you? (joke and just a random number generator)", inline=False)
+        embed.add_field(name="rps", value="> Rock Paper Scissors, /rps [choice] (friend inspired)", inline=False)
+        embed.add_field(name="gay", value="> How gay are you? (joke and just a random number generator; "
+                                          "friend inspired)", inline=False)
         embed.set_footer(text="Made by KimiGets0FPS (not copy and pasted)")
         await message.channel.send(embed=embed)
 

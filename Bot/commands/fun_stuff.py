@@ -43,41 +43,32 @@ class Fun(commands.Cog):
         cc = random.choice(["rock", "paper", "scissors"])  # Computer's choice
         wl = 0
         content = ctx.message.content[5:]
-
         if cc == content.lower():
             wl = None
-
         elif content.lower() == "rock":
             if cc == "paper":
                 wl = False
             elif cc == "scissors":
                 wl = True
-
         elif content.lower() == "paper":
             if cc == "rock":
                 wl = True
             elif cc == "scissors":
                 wl = False
-
         elif content.lower() == "scissors":
             if cc == "rock":
                 wl = False
             elif cc == "paper":
                 wl = True
-
         if wl:
             await ctx.send(f"{ctx.author.mention} You won!\nComputer choice: {cc}")
-
         elif wl is False:
             await ctx.send(f"{ctx.author.mention} You Lost!\nComputer choice: {cc}")
-
         elif wl is None:
             await ctx.channel.send(f"{ctx.author.mention} You tied!")
-
         else:
             await ctx.channel.send(f"{ctx.author.mention} that's not a valid choice! "
                                    f"(do you know how to play rock paper and scissors?)")
-
         return
 
     @commands.command(name="gay", help="How gay are you?")
