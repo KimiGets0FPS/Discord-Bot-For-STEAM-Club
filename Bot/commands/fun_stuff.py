@@ -1,9 +1,19 @@
-import discord
 from discord.ext import commands
 
 import random
 
-from Bot.commands.basic_commands import if_command_channel, bad_person
+no_commands_channel = [931414371077345289, 931414371521925120]
+
+
+def if_command_channel(message):
+    if message.channel.id in no_commands_channel:
+        print(f"{message.author} used commands in a no no place (ban-hammer time)")
+        return False
+    return True
+
+
+async def bad_person(message):
+    await message.channel.send(f"{message.channel.mention} This channel doesn't allow commands! D:<")
 
 
 class Fun(commands.Cog):
@@ -36,44 +46,54 @@ class Fun(commands.Cog):
 
     @commands.command(name="slap", help="epic")
     async def slap(self, message):
-        await message.channel.send(f"{message.author.mention} u slap")
+        if if_command_channel(message):
+            await message.channel.send(f"{message.author.mention} u slap")
+            return
+        await bad_person(message)
+        return
 
     @commands.command(name="rps", help="Rock Paper Scissors")
     async def rps(self, ctx):
-        cc = random.choice(["rock", "paper", "scissors"])  # Computer's choice
-        wl = 0
-        content = ctx.message.content[5:]
-        if cc == content.lower():
-            wl = None
-        elif content.lower() == "rock":
-            if cc == "paper":
-                wl = False
-            elif cc == "scissors":
-                wl = True
-        elif content.lower() == "paper":
-            if cc == "rock":
-                wl = True
-            elif cc == "scissors":
-                wl = False
-        elif content.lower() == "scissors":
-            if cc == "rock":
-                wl = False
-            elif cc == "paper":
-                wl = True
-        if wl:
-            await ctx.send(f"{ctx.author.mention} You won!\nComputer choice: {cc}")
-        elif wl is False:
-            await ctx.send(f"{ctx.author.mention} You Lost!\nComputer choice: {cc}")
-        elif wl is None:
-            await ctx.channel.send(f"{ctx.author.mention} You tied!")
-        else:
-            await ctx.channel.send(f"{ctx.author.mention} that's not a valid choice! "
-                                   f"(do you know how to play rock paper and scissors?)")
-        return
+        if if_command_channel(ctx):
+            cc = random.choice(["rock", "paper", "scissors"])  # Computer's choice
+            wl = 0
+            content = ctx.message.content[5:]
+            if cc == content.lower():
+                wl = None
+            elif content.lower() == "rock":
+                if cc == "paper":
+                    wl = False
+                elif cc == "scissors":
+                    wl = True
+            elif content.lower() == "paper":
+                if cc == "rock":
+                    wl = True
+                elif cc == "scissors":
+                    wl = False
+            elif content.lower() == "scissors":
+                if cc == "rock":
+                    wl = False
+                elif cc == "paper":
+                    wl = True
+            if wl:
+                await ctx.send(f"{ctx.author.mention} You won!\nComputer choice: {cc}")
+            elif wl is False:
+                await ctx.send(f"{ctx.author.mention} You Lost!\nComputer choice: {cc}")
+            elif wl is None:
+                await ctx.channel.send(f"{ctx.author.mention} You tied!")
+            else:
+                await ctx.channel.send(f"{ctx.author.mention} that's not a valid choice! "
+                                       f"(do you know how to play rock paper and scissors?)")
+            return
+        await bad_person(ctx)
 
     @commands.command(name="gay", help="How gay are you?")
     async def gay(self, message):
-        await message.channel.send(f"||{message.author.mention}||\nYou are {random.randint(0, 100)}% gay!")
+        if if_command_channel(message):
+            await message.channel.send(f"||{message.author.mention}||\nYou are {random.randint(0, 100)}% gay!")
+            return
+        await bad_person(message)
+        return
 
 
 def setup(client):

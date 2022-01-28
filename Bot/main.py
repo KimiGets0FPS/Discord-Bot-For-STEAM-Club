@@ -34,8 +34,7 @@ async def on_command_error(ctx, message):
 cog_files = [
     "commands.basic_commands",
     "commands.fun_stuff",
-    "commands.serious_stuff"
-             ]
+            ]
 
 for file in cog_files:
     client.load_extension(file)
