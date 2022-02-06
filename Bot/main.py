@@ -5,7 +5,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 
-if not os.path.isdir("resources"):
+if not os.path.isdir("commands/resources"):
     os.makedirs("resources")
 
 
