@@ -92,7 +92,6 @@ class BasicCommands(commands.Cog):
                                       "AWSAccessKeyId=WHPVCLA8APE07J047F9D&Expires=1642832369&"
                                       "Signature=t9mVdkZPx72bRribpnjcWMv0ALw%3D")
             embed.add_field(name="Help", value="> Stop, get some help", inline=False)
-            embed.add_field(name="Help", value="> Stop, get some help", inline=False)
             embed.add_field(name="suggestion", value="> Give me some suggestions! I'm counting on you!!!")
             embed.add_field(name="source", value="> Get source to see my code (check it out, it's cool)", inline=False)
             embed.add_field(name="hi", value="> Say hi to my bot when its online :)", inline=False)
@@ -104,6 +103,9 @@ class BasicCommands(commands.Cog):
             embed.add_field(name="rps", value="> Rock Paper Scissors, /rps [choice] (friend inspired)", inline=False)
             embed.add_field(name="gay", value="> How gay are you? (joke and just a random number generator; "
                                               "friend inspired)", inline=False)
+            embed.add_field(name="poll", value="> Gives a poll of how many people are going to join for the next "
+                                               "meeting. (Only bot testers, teacher, and creator can use this "
+                                               "*unique* command)", inline=False)
             embed.set_footer(text="Made by KimiGets0FPS (not copy and pasted)")
             await message.channel.send(embed=embed)
             return

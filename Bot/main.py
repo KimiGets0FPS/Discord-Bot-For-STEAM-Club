@@ -5,6 +5,10 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 
+if not os.path.isdir("resources"):
+    os.makedirs("resources")
+
+
 load_dotenv('bot_token.env')
 TOKEN = os.getenv('BOT_TOKEN')
 
@@ -34,6 +38,7 @@ async def on_command_error(ctx, message):
 cog_files = [
     "commands.basic_commands",
     "commands.fun_stuff",
+    "commands.serious_stuff"
             ]
 
 for file in cog_files:
