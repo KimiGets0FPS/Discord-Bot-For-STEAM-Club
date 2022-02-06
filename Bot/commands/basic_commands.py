@@ -6,6 +6,12 @@ import datetime
 
 no_commands_channel = [931414371077345289, 931414371521925120]
 
+# path = "/home/kimiw/Documents/Discord-Bot-For-STEAM-Club/Bot/Commands/resources/suggestions.txt"
+
+
+path = "C:/Users/zhewe/OneDrive/Documents/Coding " \
+       "Projects/Discord-Bot-For-STEAM-Club/Bot/commands/resources/suggestions.txt"
+
 
 def if_command_channel(message):
     if message.channel.id in no_commands_channel:
@@ -25,8 +31,6 @@ class BasicCommands(commands.Cog):
     @commands.command(name="suggestion", help="Give me suggestions now ")
     async def suggestion(self, ctx):
         if if_command_channel(ctx):
-            path = "C:/Users/zhewe/OneDrive/Documents/Coding " \
-                   "Projects/Discord-Bot-For-STEAM-Club/Bot/commands/resources/suggestions.txt "
             suggestion = ctx.message.content[12:]
             with open(path, 'a') as f:
                 print(f"{ctx.message.author} suggested: {suggestion}", file=f)

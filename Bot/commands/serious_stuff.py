@@ -6,6 +6,11 @@ import string
 no_commands_channel = [931414371077345289, 931414371521925120]
 poll_ids = {}
 
+# path = "/home/kimiw/Documents/Discord-Bot-For-STEAM-Club/Bot/Commands/resources/poll_id.txt"
+
+path = "C:/Users/zhewe/OneDrive/Documents/Coding " \
+       "Projects/Discord-Bot-For-STEAM-Club/Bot/commands/resources/poll_id.txt"
+
 
 def gen_id(author):
     poll_id = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(15))
@@ -33,8 +38,6 @@ class SeriousStuff(commands.Cog):
     async def poll(self, ctx):
         content = ctx.message.content[6:]
         generated = gen_id(ctx.message.author)
-        path = "C:/Users/zhewe/OneDrive/Documents/Coding " \
-               "Projects/Discord-Bot-For-STEAM-Club/Bot/commands/resources/poll_id.txt"
         with open(path, 'a') as f:
             print(f"{generated}&&&{ctx.message.author}&&&{content}", file=f)
         await ctx.send(f"{content}\nPoll ID: ||{generated}||")
@@ -46,8 +49,6 @@ class SeriousStuff(commands.Cog):
         given_id = message[8:23]
         response = message[23:]
         print(given_id, response)
-        path = "C:/Users/zhewe/OneDrive/Documents/Coding " \
-               "Projects/Discord-Bot-For-STEAM-Club/Bot/commands/resources/poll_id.txt"
         with open(path, 'r') as f:
             polls = {}
             while True:
