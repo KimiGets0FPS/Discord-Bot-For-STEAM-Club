@@ -1,4 +1,6 @@
+# import discord
 from discord.ext import commands
+# from discord.ext.commands import MemberConverter
 import random
 import string
 
@@ -6,6 +8,8 @@ import string
 no_commands_channel = [931414371077345289, 931414371521925120]
 poll_ids = {}
 
+
+# path for raspberry pi lol
 # path = "/home/kimiw/Documents/Discord-Bot-For-STEAM-Club/Bot/Commands/resources/poll_id.txt"
 
 path = "C:/Users/zhewe/OneDrive/Documents/Coding " \
@@ -33,31 +37,50 @@ class SeriousStuff(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="poll", help="Just pings everyone")
+    @commands.command(name="mention", help="Just pings everyone")
     @commands.has_permissions(administrator=True)
-    async def poll(self, ctx):
-        content = ctx.message.content[6:]
-        generated = gen_id(ctx.message.author)
-        with open(path, 'a') as f:
-            print(f"{generated}&&&{ctx.message.author}&&&{content}", file=f)
-        await ctx.send(f"{content}\nPoll ID: ||{generated}||")
-        return
+    async def mention(self, ctx):
+        if if_command_channel(ctx):
+            content = ctx.message.content[6:]
+            generated = gen_id(ctx.message.author)
+            if content:
+                with open(path, 'a') as f:
+                    print(f"{generated}&&&{ctx.message.author}&&&{content}", file=f)
+                await ctx.send(f"{content}\nPoll ID: ||{generated}||")
+            else:
+                await ctx.send(f"{ctx.message.author.mention}, you should put a title for your poll!")
+            return
+        await bad_person(ctx)
 
     @commands.command(name="respond", help="Gets response to a poll")
-    async def respond(self, ctx):
-        message = ctx.message.content
-        given_id = message[8:23]
-        response = message[23:]
-        print(given_id, response)
-        with open(path, 'r') as f:
-            polls = {}
-            while True:
-                line = f.readline().split('&&&')
-                if not line:
-                    break
-                polls[line[0]] = [line[1], line[2]]
-        await ctx.send(f"{polls}")
-        return
+    async def respond(self, message):
+        if if_command_channel(message):
+            print(message.content)
+            message = message.content
+            given_id = message[9:24]
+            response = message[24:]
+            print(given_id, response)
+            with open(path, 'r') as f:
+                polls = {}
+                while True:
+                    line = f.readline().split('&&&')
+                    if line == ['']:
+                        f.close()
+                        break
+                    polls.get(line[0], [line[1], line[2]])
+            if given_id in polls:
+                print(f"{message.author} responded: {response}")
+                # RoboticsMaster#6075, KimiGets0FPS#4400
+                # user = await MemberConverter.convert(message, "RoboticsMaster#6075")
+                await message.author.send(f"{message.author} responded: {response}")
+                # user = await MemberConverter.convert(message, "KimiGets0FPS#4400")
+                # await user.send(f"{ctx.message.author} responded: {response}")
+
+                await message.channel.send(f"{message.author.mention} thanks for responding to the poll!")
+                return
+            await message.channel.send(f"{message.author.mention} that's not a valid poll id!")
+            return
+        await bad_person(message)
 
 
 def setup(client):

@@ -54,45 +54,51 @@ class Fun(commands.Cog):
 
     @commands.command(name="rps", help="Rock Paper Scissors")
     async def rps(self, ctx):
-        if if_command_channel(ctx):
+        if if_command_channel(ctx.message):
+            choice = ctx.message.content[5:]
             cc = random.choice(["rock", "paper", "scissors"])  # Computer's choice
             wl = 0
-            content = ctx.message.content[5:]
-            if cc == content.lower():
+            if cc == choice.lower():
                 wl = None
-            elif content.lower() == "rock":
+            elif choice.lower() == "rock":
                 if cc == "paper":
                     wl = False
                 elif cc == "scissors":
                     wl = True
-            elif content.lower() == "paper":
+            elif choice.lower() == "paper":
                 if cc == "rock":
                     wl = True
                 elif cc == "scissors":
                     wl = False
-            elif content.lower() == "scissors":
+            elif choice.lower() == "scissors":
                 if cc == "rock":
                     wl = False
                 elif cc == "paper":
                     wl = True
             if wl:
-                await ctx.send(f"{ctx.author.mention} You won!\nComputer choice: {cc}")
+                await ctx.send(f"{ctx.message.author.mention} You win! PC choice: {cc}")
             elif wl is False:
-                await ctx.send(f"{ctx.author.mention} You Lost!\nComputer choice: {cc}")
+                await ctx.send(f"{ctx.message.author.mention} You lost! PC choice: {cc}")
             elif wl is None:
-                await ctx.channel.send(f"{ctx.author.mention} You tied!")
+                await ctx.send(f"{ctx.message.author.mention} You tied!")
             else:
-                await ctx.channel.send(f"{ctx.author.mention} that's not a valid choice! "
-                                       f"(do you know how to play rock paper and scissors?)")
+                await ctx.send(f"{ctx.message.author.mention}, that's not a valid choice!")
             return
-        await bad_person(ctx)
+        await bad_person(ctx.message)
 
-    @commands.command(name="gay", help="How gay are you?")
-    async def gay(self, message):
+    @commands.command(name="gamer", help="How gay are you?")
+    async def gamer(self, message):
         if if_command_channel(message):
-            await message.channel.send(f"||{message.author.mention}||\nYou are {random.randint(0, 100)}% gay!")
+            await message.channel.send(f"||{message.author.mention}||\nYou are {random.randint(0, 100)}% a gamer!")
             return
         await bad_person(message)
+        return
+
+    @commands.command(name="ping", help="Lol")
+    @commands.has_permissions(administrator=True)
+    async def ping(self, message):
+        user = message.content[5:]
+        await message.channel.send(f"{message.author.mention} pinged {user.mention}")
         return
 
 
