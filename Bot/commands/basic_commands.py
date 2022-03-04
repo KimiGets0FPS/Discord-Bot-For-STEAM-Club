@@ -52,11 +52,13 @@ class BasicCommands(commands.Cog):
                 days += 1
             if days:
                 if days == 1:
-                    await ctx.send(f"Tomorrow is the next meeting!!!")
+                    message = await ctx.send(f"Tomorrow is the next meeting!!!")
                 else:
-                    await ctx.send(f"There are still {days} days until the next meeting")
-                return
-            await ctx.send("The next meeting is TODAY")
+                    message = await ctx.send(f"There are still {days} days until the next meeting")
+            else:
+                message = await ctx.send("The next meeting is TODAY")
+            await message.add_reaction('✅')
+            await message.add_reaction('❌')
             return
         await bad_person(ctx)
         return

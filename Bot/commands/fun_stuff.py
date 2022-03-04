@@ -94,13 +94,6 @@ class Fun(commands.Cog):
         await bad_person(message)
         return
 
-    @commands.command(name="ping", help="Lol")
-    @commands.has_permissions(administrator=True)
-    async def ping(self, message):
-        user = message.content[5:]
-        await message.channel.send(f"{message.author.mention} pinged {user.mention}")
-        return
-
 
 def setup(client):
     client.add_cog(Fun(client))

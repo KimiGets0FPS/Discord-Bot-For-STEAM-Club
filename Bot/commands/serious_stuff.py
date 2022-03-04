@@ -37,6 +37,13 @@ class SeriousStuff(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    @commands.command(name="vote", help="Vote (no vote because I'm the dictator)")
+    @commands.has_permissions(administrator=True)
+    async def vote(self, message):
+        msg = await message.channel.send(f"idk waht to put here")
+        await msg.add_reaction('✅')
+        await msg.add_reaction('❌')
+
     @commands.command(name="mention", help="Just pings everyone")
     @commands.has_permissions(administrator=True)
     async def mention(self, ctx):
@@ -55,7 +62,6 @@ class SeriousStuff(commands.Cog):
     @commands.command(name="respond", help="Gets response to a poll")
     async def respond(self, message):
         if if_command_channel(message):
-            print(message.content)
             message = message.content
             given_id = message[9:24]
             response = message[24:]
